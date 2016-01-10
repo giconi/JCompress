@@ -1,65 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- WARNING: Eclipse auto-generated file.
-              Any modifications will be overwritten.
-              To include a user specific buildfile here, simply create one in the same
-              directory with the processing instruction <?eclipse.ant.import?>
-              as the first entry and export the buildfile again. -->
-
 
     <project basedir="." default="build" name="Compressor" xmlns:ivy="antlib:org.apache.ivy.ant">
-
-    <ivy:resolve file="ivy.xml"/>
 
     <target name="ivy" description="Install ivy">
 		<mkdir dir="${user.home}/.ant/lib" />
 		<get dest="${user.home}/.ant/lib/ivy.jar" src="http://search.maven.org/remotecontent?filepath=org/apache/ivy/ivy/2.4.0-rc1/ivy-2.4.0-rc1.jar" />
     </target>
 
-    <property environment="env"/>
-    <!--<property name="JRE_LIB" value="../../../../../Library/Java/JavaVirtualMachines/jdk1.8.0_11.jdk/Contents/Home/jre/lib/rt.jar"/>-->
     <property name="debuglevel" value="source,lines,vars"/>
-    <property name="target" value="1.8"/>
-    <property name="source" value="1.8"/>
+
+    <!--<property name="target" value="1.8"/>
+    <property name="source" value="1.8"/>-->
+
     <path id="Ivy.libraryclasspath">
         <pathelement location="${user.home}/.ivy2/cache/org.apache.logging.log4j/log4j-api/jars/log4j-api-2.5.jar"/>
         <pathelement location="${user.home}/.ivy2/cache/org.osgi/org.osgi.core/jars/org.osgi.core-4.3.1.jar"/>
         <pathelement location="${user.home}/.ivy2/cache/org.apache.logging.log4j/log4j-core/jars/log4j-core-2.5.jar"/>
-        <pathelement location="${user.home}/.ivy2/cache/com.lmax/disruptor/jars/disruptor-3.3.2.jar"/>
-        <pathelement location="${user.home}/.ivy2/cache/com.fasterxml.jackson.core/jackson-core/bundles/jackson-core-2.6.3.jar"/>
-        <pathelement location="${user.home}/.ivy2/cache/com.fasterxml.jackson.core/jackson-databind/bundles/jackson-databind-2.6.3.jar"/>
-        <pathelement location="${user.home}/.ivy2/cache/com.fasterxml.jackson.core/jackson-annotations/bundles/jackson-annotations-2.6.0.jar"/>
-        <pathelement location="${user.home}/.ivy2/cache/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml/bundles/jackson-dataformat-yaml-2.6.3.jar"/>
-        <pathelement location="${user.home}/.ivy2/cache/org.yaml/snakeyaml/bundles/snakeyaml-1.15.jar"/>
-        <pathelement location="${user.home}/.ivy2/cache/com.fasterxml.jackson.dataformat/jackson-dataformat-xml/bundles/jackson-dataformat-xml-2.6.3.jar"/>
-        <pathelement location="${user.home}/.ivy2/cache/com.fasterxml.jackson.module/jackson-module-jaxb-annotations/bundles/jackson-module-jaxb-annotations-2.6.3.jar"/>
-        <pathelement location="${user.home}/.ivy2/cache/org.codehaus.woodstox/stax2-api/bundles/stax2-api-3.1.4.jar"/>
-        <pathelement location="${user.home}/.ivy2/cache/org.codehaus.woodstox/woodstox-core-asl/jars/woodstox-core-asl-4.3.0.jar"/>
-        <pathelement location="${user.home}/.ivy2/cache/javax.xml.stream/stax-api/jars/stax-api-1.0-2.jar"/>
-        <pathelement location="${user.home}/.ivy2/cache/org.fusesource.jansi/jansi/jars/jansi-1.11.jar"/>
-        <pathelement location="${user.home}/.ivy2/cache/com.sun.mail/javax.mail/jars/javax.mail-1.5.4.jar"/>
-        <pathelement location="${user.home}/.ivy2/cache/javax.activation/activation/jars/activation-1.1.jar"/>
-        <pathelement location="${user.home}/.ivy2/cache/org.eclipse.persistence/javax.persistence/jars/javax.persistence-2.1.0.jar"/>
-        <pathelement location="${user.home}/.ivy2/cache/org.jboss.spec.javax.jms/jboss-jms-api_1.1_spec/jars/jboss-jms-api_1.1_spec-1.0.1.Final.jar"/>
-        <pathelement location="${user.home}/.ivy2/cache/org.apache.kafka/kafka-clients/jars/kafka-clients-0.9.0.0.jar"/>
-        <pathelement location="${user.home}/.ivy2/cache/org.slf4j/slf4j-api/jars/slf4j-api-1.7.12.jar"/>
-        <pathelement location="${user.home}/.ivy2/cache/org.xerial.snappy/snappy-java/bundles/snappy-java-1.1.1.7.jar"/>
-        <pathelement location="${user.home}/.ivy2/cache/net.jpountz.lz4/lz4/jars/lz4-1.2.0.jar"/>
-        <pathelement location="${user.home}/.ivy2/cache/org.zeromq/jeromq/jars/jeromq-0.3.5.jar"/>
         <pathelement location="${user.home}/.ivy2/cache/org.apache.commons/commons-compress/jars/commons-compress-1.10.jar"/>
-        <pathelement location="${user.home}/.ivy2/cache/org.apache.commons/commons-csv/jars/commons-csv-1.2.jar"/>
-        <pathelement location="${user.home}/.ivy2/cache/org.tukaani/xz/jars/xz-1.5.jar"/>
     </path>
+
     <path id="Compressor.classpath">
         <pathelement location="build/classes"/>
-        <!--<pathelement location="${JRE_LIB}"/>-->
         <path refid="Ivy.libraryclasspath"/>
     </path>
+
     <path id="run.CompressorMain.classpath">
-        <!--<pathelement location="${JRE_LIB}"/>-->
         <path refid="Compressor.classpath"/>
         <pathelement location="conf"/>
     </path>
+
     <path id="run.CompressorMain.bootclasspath"/>
+
     <target name="init">
         <mkdir dir="build/classes"/>
         <copy includeemptydirs="false" todir="build/classes">
@@ -69,50 +40,36 @@
             </fileset>
         </copy>
     </target>
+
     <target name="clean">
         <delete dir="build/classes"/>
+	<delete dir="build/jar"/>
     </target>
-    <target depends="clean" name="cleanall"/>
-    <target depends="build-project" name="build"/>
-    <target depends="init" name="build-project">
+
+    <target name="build">
+	<ivy:resolve file="ivy.xml"/>
+	<mkdir dir="build/classes"/>
         <echo message="${ant.project.name}: ${ant.file}"/>
-        <javac debug="true" debuglevel="${debuglevel}" destdir="build/classes" includeantruntime="false" source="${source}" target="${target}">
+        <javac debug="true" debuglevel="${debuglevel}" destdir="build/classes" includeantruntime="false">
             <src path="src"/>
             <classpath refid="Compressor.classpath"/>
         </javac>
     </target>
-<!--    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/> -->
-
-<!--    <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
-        <copy todir="${ant.library.dir}">
-            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
-        </copy>
-        <unzip dest="${ant.library.dir}">
-            <patternset includes="jdtCompilerAdapter.jar"/>
-            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
-        </unzip>
-    </target> -->
-    <!--<target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
-        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
-        <antcall target="build"/>
-    </target> -->
-
 
     <target name="jar" depends="build">
 		<mkdir dir="build/jar"/>
 		<jar destfile="build/jar/Compressor.jar" basedir="build/classes">
 			<manifest>
 				<attribute name="Main-Class" value="com.matt.CompressorMain"/>
-				<attribute name="Class-path" value="conf/"/>
 			</manifest>
 				<zipgroupfileset dir="${user.home}/.ivy2/cache" includes="**/*.jar"/>
 		</jar>
     </target>
 
-    <target name="CompressorMain">
+    <target name="run-class">
         <java classname="com.matt.CompressorMain" failonerror="true" fork="yes">
 		 <arg value="/var/tmp/testfile"/>
-                     <arg value="zip"/>
+                 <arg value="zip"/>
             <classpath refid="run.CompressorMain.classpath"/>
             <bootclasspath>
                 <path refid="run.CompressorMain.bootclasspath"/>
@@ -123,7 +80,7 @@
 	<target name="run">
 		<java jar="build/jar/Compressor.jar" fork="true">
 		     <jvmarg value="-Dlog4j.configurationFile=conf/log4j2.xml"/>
-		     <arg value="/var/tmp/testfile"/>
+		     <arg value="./testfile"/>
       		     <arg value="zip"/>
 		</java>
 	</target>
