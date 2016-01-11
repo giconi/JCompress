@@ -4,15 +4,18 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.zip.*;
 
 import org.apache.logging.log4j.*;
-
 
 public class Compressor	 {
 	
 	private File fname;
 	private String type;
+	private List<String> listOfFiles;
+	List<String> fileList = new ArrayList<String>();
+	private String oname;
 
 	final static Logger logger = LogManager.getFormatterLogger(Compressor.class);
 
@@ -20,11 +23,41 @@ public class Compressor	 {
 	public Compressor(String[] args) {
 		// TODO Auto-generated constructor stub
 		
-		fname = new File(args[0]);
-		type = args[1];
-					
+		if(args.length==0){
+			logger.error("No arguments set.  Need at least a file.");
+			return;
+		};
+		if(args.length==1){
+			fname = new File(args[0]);
+			this.type = user_menu();			
+		}
+		if(args.length==2){
+			fname = new File(args[0]);
+			this.type = args[1];
+		}
+		if(args.length==3){
+			fname = new File(args[0]);
+			this.type = args[1];
+			this.oname = args[2];
+
+			
+		}
+		
 	}
 	
+	private String user_menu() {
+		// TODO Auto-generated method stub
+		Scanner reader = new Scanner(System.in);
+		List<String> compressionList = getCompressionList();
+		for (int i = 0; i < compressionList.size(); i++) {			
+			System.out.println(i+". "+compressionList.get(i).toString());
+		}
+		System.out.println("Select compression type: ");
+		int n = reader.nextInt();
+		reader.close();
+		return compressionList.get(n).toString();
+	}
+
 	public void Run() throws Exception{
 	
 			
@@ -40,7 +73,10 @@ public class Compressor	 {
 		
 		
 		AbstractCompress ac = new AbstractCompress();
-		ac.process(this.fname, this.type);
+		
+		System.out.print(this.fileList);
+		
+		ac.process(this.fileList, this.type);
 		
 	}
 	
@@ -52,7 +88,6 @@ public class Compressor	 {
 		compressionList.add("tar");
 		compressionList.add("gzip");
 		compressionList.add("bzip");
-		
 		
 		return compressionList;
 		
@@ -73,6 +108,31 @@ public class Compressor	 {
 		
 		
 		return true;
+	}
+	
+    public boolean generateFileList(File node){
+
+    	//add file only
+    	
+		
+		System.out.println("a file");
+
+	if(node.isFile()){
+		System.out.println("a file");
+		fileList.add(node.getAbsoluteFile().toString());
+	}
+		
+	if(node.isDirectory()){
+		logger.info("Is a directory");
+		String[] subNote = node.list();
+		//System.out.println("SubNote "+subNote);
+		for(String filename : subNote){
+						
+			generateFileList(new File(node, filename));
+		}
+	}
+	return true;
+	
 	}
 
 	private boolean validateFile() {
@@ -100,7 +160,9 @@ public class Compressor	 {
 			return false;
 		}
 		
-		logger.info("The file is %s bytes",this.fname.length());
+		generateFileList(fname);
+		
+		//logger.info("The file is %s bytes",this.fname.length());
 		
 		return true;
 	}

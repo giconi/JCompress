@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,12 +20,12 @@ import org.apache.commons.compress.utils.IOUtils;
 
 public class Tar {
 
-	public Tar(File fname){
+	public Tar(List<String> fname){
 		
 		
 	     OutputStream tar_output = null;
 		try {
-			tar_output = new FileOutputStream(new File(fname.getAbsoluteFile()+".tar"));
+			tar_output = new FileOutputStream(new File("/var/tmp/filetesting/tarfile"+".tar"));
 		} catch (FileNotFoundException e3) {
 			// TODO Auto-generated catch block
 			e3.printStackTrace();
@@ -38,7 +39,11 @@ public class Tar {
 			e2.printStackTrace();
 		}
          /* Create Archieve entry - write header information*/
-         File tar_input_file= fname.getAbsoluteFile();
+		for (int i = 0; i <fname.size(); i++) {			
+
+			
+		
+         File tar_input_file= new File(fname.get(i)).getAbsoluteFile();
          TarArchiveEntry tar_file = new TarArchiveEntry(tar_input_file);
          /* length of the TAR file needs to be set using setSize method */
          tar_file.setSize(tar_input_file.length());
@@ -65,7 +70,7 @@ public class Tar {
 			e.printStackTrace();
 		}
          /* Repeat steps for the next file that needs to be added to the TAR */
-     
+		}
       
          /* Close output stream, our files are zipped */
          try {

@@ -3,23 +3,27 @@ package com.matt;
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+
 import com.matt.Zip;
 
 
 public class AbstractCompress {
 
-	public void process(File file,String type){
+	public void process(List<String> file,String type){
 		
 		createCompress(file, type);
 		
 	}
 
-	private void createCompress(File param1, String param2) {
+	private void createCompress(List<String> param1, String param2) {
 		// TODO Auto-generated method stub		
 		
 		String className = param2 ;
 		className = "com.matt."+Character.toUpperCase(className.charAt(0)) + className.substring(1); 
 
+		System.out.println("In ccc: "+param1);
+		
 		Object xyz = null;
 	
 		Class cl = null;
@@ -31,7 +35,7 @@ public class AbstractCompress {
 		}
 		Constructor con = null;
 		try {
-			con = cl.getConstructor(File.class);
+			con = cl.getConstructor(List.class);
 		} catch (NoSuchMethodException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
