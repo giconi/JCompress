@@ -27,7 +27,7 @@ public class TarPackage extends Compressor implements Compress {
 	     List<String> fname = getFileList();
 	     
 		try {
-			tar_output = new FileOutputStream(new File("/var/tmp/filetesting/tarfile"+".tar"));
+			tar_output = new FileOutputStream(getOutPutFile());
 		} catch (FileNotFoundException e3) {
 			// TODO Auto-generated catch block
 			e3.printStackTrace();
