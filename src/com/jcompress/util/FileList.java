@@ -9,8 +9,9 @@ public class FileList {
 	private List<String> fileList = new ArrayList<String>();
 	
 	public boolean GenerateRecursiveFileList(File node){
-		
+				
 		if(node.isFile()){
+
 			getFileList().add(node.getAbsolutePath());
 		}
 		

@@ -64,4 +64,17 @@ public class BzipCompress extends Compressor implements Compress {
 			
 			}
 	
+	public boolean tarFirst(){
+		
+		return true;
+		
+	}
+	
+	public String fileExtension(){
+		
+		return ".bz2";
+		
+	}
+
+	
 }

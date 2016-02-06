@@ -1,9 +1,6 @@
 package com.jcompress.core;
 
-import java.io.File;
-
-import com.jcompress.compressions.CompressionChooser;
-import com.jcompress.compressions.zipCompress;
+import com.jcompress.core.CompressorRunner;
 
 
 public class CompressorMain {
@@ -14,22 +11,19 @@ public class CompressorMain {
 
 		if(args.length!=3){
 			
-			System.out.print("Three params - in out type");
+			System.out.print("Three params - in outdir type");
 			return;
 		}
 		
-		CompressionChooser c = new CompressionChooser() ;
+		String inputfile = args[0];
+		String compression = args[2];
+		String outputfile = args[1];
 		
-		Compressor matt = c.whatToDo.get(args[2]);
+		CompressorRunner cr = new CompressorRunner();
+		cr.MakeItSo(inputfile, compression, outputfile);
 		
-		File InputFile = new File(args[0]);
-		matt.setOutPutFile(args[1]);
-		matt.setCompressionType(args[2]);
-		matt.setFileList(InputFile);
-		matt.compressFiles();
-		
-		System.out.print("done");
+		System.out.println("done");
 		
 	}
-
+	
 }

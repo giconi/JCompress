@@ -12,5 +12,7 @@ public interface Compress {
 	public void setFileList(File InputFile);
 	public void setOutPutFile(String OutputFile);
 	public String getOutPutFile();
+	public boolean tarFirst();
+	public String fileExtension();
 	
 }

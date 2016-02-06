@@ -8,7 +8,7 @@ import java.util.zip.ZipEntry;
 import com.jcompress.util.FileList;
 
 
-public abstract class Compressor implements Compress {
+public abstract class Compressor implements Compress  {
 
 	String compression;
 	List<String> fileList = new ArrayList<String>();
@@ -40,13 +40,23 @@ public abstract class Compressor implements Compress {
 	}
 
 	public void setOutPutFile(String OutputFile){
-		this.OutputFile = OutputFile;		
+		this.OutputFile = OutputFile + fileExtension();
 	}
 	
 	public String getOutPutFile(){		
 		return this.OutputFile;		
 	}
+	
+	public void moveOutputFIle(File output, String outputdir){
+		output.renameTo(new File(outputdir+"/"+output.getName()));
+		
+		
+	}
 
+	public void compressFiles() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }

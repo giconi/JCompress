@@ -23,6 +23,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 
+import com.jcompress.core.CompressorRunner;
+
 public class FileSelector extends JFrame
 {
    /**
@@ -58,7 +60,6 @@ private JTextField textField_2;
      
       al = new ActionListener()
            {
-              @Override
               public void actionPerformed(ActionEvent ae)
               {
                  switch (fc.showOpenDialog(FileSelector.this))
@@ -133,16 +134,16 @@ private JTextField textField_2;
       pnl.add(textField_1);
       textField_1.setColumns(10);
       
-      JLabel lblSetOutputFilename = new JLabel("Set Output Filename");
-      lblSetOutputFilename.setHorizontalAlignment(SwingConstants.CENTER);
-      pnl.add(lblSetOutputFilename);
+      //JLabel lblSetOutputFilename = new JLabel("Set Output Filename");
+      //lblSetOutputFilename.setHorizontalAlignment(SwingConstants.CENTER);
+      //pnl.add(lblSetOutputFilename);
       
-      textField_2 = new JTextField();
-      pnl.add(textField_2);
-      textField_2.setColumns(10);
+     // textField_2 = new JTextField();
+      //pnl.add(textField_2);
+      //textField_2.setColumns(10);
       
       
-      JComboBox<Object> comboBox = new JComboBox<Object>();
+      final JComboBox<Object> comboBox = new JComboBox<Object>();
       comboBox.addItem("zip");
       comboBox.addItem("bz2");
       comboBox.addItem("tar");
@@ -155,16 +156,11 @@ private JTextField textField_2;
       btnCompress.addMouseListener(new MouseAdapter() {
       	@Override
       	public void mouseClicked(MouseEvent e) {
+
+      		CompressorRunner a = new CompressorRunner();
+      		a.MakeItSo(textField.getText(), comboBox.getSelectedItem().toString(), textField_1.getText());
       		
-      		CompressionChooser c = new CompressionChooser() ;
-    		
-    		Compressor matt = c.whatToDo.get(comboBox.getSelectedItem().toString());
-    		
-    		File InputFile = new File(textField.getText());
-    		matt.setOutPutFile(textField_1.getText() + "/" + textField_2.getText());
-    		matt.setCompressionType(comboBox.getSelectedItem().toString());
-    		matt.setFileList(InputFile);
-    		matt.compressFiles();
+     
     		JOptionPane.showMessageDialog(FileSelector.this, "Compress Complete",
                     "FCDemo",
                     JOptionPane.INFORMATION_MESSAGE);
@@ -181,7 +177,6 @@ private JTextField textField_2;
    {
       Runnable r = new Runnable()
                    {
-                      @Override
                       public void run()
                       {
                          new FileSelector("FileChooser Demo");

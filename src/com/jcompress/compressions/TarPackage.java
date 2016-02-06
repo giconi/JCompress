@@ -28,10 +28,15 @@ public class TarPackage extends Compressor implements Compress {
 	     
 		try {
 			tar_output = new FileOutputStream(getOutPutFile());
+			System.out.println(tar_output+"AAA");
 		} catch (FileNotFoundException e3) {
 			// TODO Auto-generated catch block
 			e3.printStackTrace();
 		}
+		System.out.println(tar_output+"AAA");
+		
+		System.out.println("AAAAAAA"+getOutPutFile());
+
         /* Create Archive Output Stream that attaches File Output Stream / and specifies TAR as type of compression */
         ArchiveOutputStream my_tar_ball = null;
 		try {
@@ -46,6 +51,13 @@ public class TarPackage extends Compressor implements Compress {
 			
 		
         File tar_input_file= new File(fname.get(i)).getAbsoluteFile();
+        
+        //if(tar_input_file.isDirectory()){
+        
+        	//continue;
+        
+        //}
+        
         TarArchiveEntry tar_file = new TarArchiveEntry(tar_input_file);
         /* length of the TAR file needs to be set using setSize method */
         tar_file.setSize(tar_input_file.length());
@@ -82,5 +94,18 @@ public class TarPackage extends Compressor implements Compress {
 			e.printStackTrace();
 		}
 	}
+	
+	public boolean tarFirst(){
+		
+		return false;
+		
+	}
+	
+	public String fileExtension(){
+		
+		return ".tar";
+		
+	}
+
 
 }

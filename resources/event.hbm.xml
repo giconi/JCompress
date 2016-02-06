@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+ "-//Hibernate/Hibernate Mapping DTD//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+
+<hibernate-mapping package="com.jcompress.test">
+
+    <class name="event" table="event">
+      <id name="id" type="int" column="event_id">
+         <generator class="native"/>
+      </id>
+        <property name="date" type="timestamp" column="event_date"/>
+        <property name="title" column="title"/>
+    </class>
+
+</hibernate-mapping>

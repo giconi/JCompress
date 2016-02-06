@@ -45,7 +45,16 @@ public class zipCompress extends Compressor implements Compress {
 	}
 
 
+	public boolean tarFirst(){
+		
+		return false;
+		
+	}
 
-
+	public String fileExtension(){
+		
+		return ".zip";
+		
+	}
 
 }
